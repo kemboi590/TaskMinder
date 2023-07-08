@@ -97,11 +97,11 @@
   }
 }
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 433px) {
   .intro_base {
     font-size: 25px;
     font-weight: 700;
-    margin: 40px 0;
+    margin: 20px 0;
   }
   .more_detail {
     font-size: 17px;
