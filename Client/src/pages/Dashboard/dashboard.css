@@ -81,3 +81,57 @@
   color: #fff;
   transition: 0.7s;
 }
+
+@media screen and (max-width: 630px) {
+  .right_page {
+    display: none;
+  }
+  .dashboard_page {
+    min-height: 60vh;
+  }
+  .description_details {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .dashboard_page {
+    min-height: 60vh;
+  }
+  .intro_base {
+    font-size: 25px;
+  }
+  .more_detail {
+    font-size: 15px;
+  }
+  .teamwork {
+    font-size: 20px;
+    margin: 10px 0;
+  }
+  .start_today {
+    font-size: 20px;
+  }
+  .home_buttons button {
+    font-size: 15px;
+
+    margin: 10px 10px;
+  }
+}
+@media screen and (max-width: 343px) {
+  .intro_base {
+    font-size: 20px;
+  }
+  .more_detail {
+    font-size: 10px;
+  }
+  .teamwork {
+    font-size: 15px;
+  }
+  .start_today {
+    font-size: 15px;
+  }
+  .home_buttons button {
+    font-size: 10px;
+  }
+}
