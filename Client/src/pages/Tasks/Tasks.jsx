@@ -1,9 +1,14 @@
-import React from 'react'
-import './tasks.css'
+import React from "react";
+import "./tasks.css";
+import SideNav from "./SideNav";
+import MainBar from "./MainBar";
 function Tasks() {
   return (
-    <div>Tasks</div>
-  )
+    <div className="tasks_page">
+      <SideNav />
+      <MainBar />
+    </div>
+  );
 }
 
-export default Tasks
+export default Tasks;

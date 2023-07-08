@@ -17,7 +17,7 @@ function Navbar() {
             <Link to="/"> Dashboard </Link>
           </li>
           <li>
-            <Link to="/tasks"> Taks </Link>
+            <Link to="/tasks"> Tasks </Link>
           </li>
         </div>
         {/* second nav div */}
