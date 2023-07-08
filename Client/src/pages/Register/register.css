@@ -26,6 +26,7 @@ form {
   border-radius: 5px;
   margin-bottom: 10px;
   outline: none;
+  background-color: #fff;
 }
 .registration_form select {
   width: 70%;
@@ -34,6 +35,7 @@ form {
   padding: 0 10px;
   border-radius: 5px;
   margin-bottom: 10px;
+  background-color: #fff;
 }
 .registration_form option {
   width: 70%;
@@ -42,6 +44,7 @@ form {
   padding: 0 10px;
   border-radius: 5px;
   margin-bottom: 10px;
+  background-color: #fff;
 }
 
 .registration_form input[type="submit"] {
