@@ -11,6 +11,7 @@ function Dashboard() {
           <img src={TaskGif} alt="TaskGif" />
         </div>
       </div>
+
       <div className="description_details">
         <h3 className="intro_base">Efficient Task Management Made Easy</h3>
 
@@ -27,6 +28,7 @@ function Dashboard() {
           <button>LOGIN</button>
         </div>
       </div>
+      
     </div>
   );
 }

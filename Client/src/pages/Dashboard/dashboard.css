@@ -3,7 +3,8 @@
   min-height: 90vh;
   display: flex;
   justify-content: center;
-  background: #ffff;
+  background: #f3f2ef;
+
 }
 .right_page {
   width: 40%;
@@ -11,6 +12,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #ffff;
 }
 .imageGif {
   width: auto;
@@ -87,7 +89,7 @@
     display: none;
   }
   .dashboard_page {
-    min-height: 60vh;
+    align-items: center;
   }
   .description_details {
     width: 100%;
@@ -95,43 +97,31 @@
   }
 }
 
-@media screen and (max-width: 510px) {
-  .dashboard_page {
-    min-height: 60vh;
-  }
+@media screen and (max-width: 630px) {
   .intro_base {
     font-size: 25px;
+    font-weight: 700;
+    margin: 40px 0;
   }
   .more_detail {
-    font-size: 15px;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 10px;
   }
   .teamwork {
-    font-size: 20px;
     margin: 10px 0;
+    font-size: 24px;
+    font-weight: bold;
   }
   .start_today {
-    font-size: 20px;
+    margin: 10px 0;
+    font-size: 24px;
+    font-weight: 600;
   }
   .home_buttons button {
-    font-size: 15px;
-
     margin: 10px 10px;
-  }
-}
-@media screen and (max-width: 343px) {
-  .intro_base {
-    font-size: 20px;
-  }
-  .more_detail {
-    font-size: 10px;
-  }
-  .teamwork {
-    font-size: 15px;
-  }
-  .start_today {
-    font-size: 15px;
-  }
-  .home_buttons button {
-    font-size: 10px;
+    padding: 10px 20px;
+    font-size: 17px;
+    font-weight: 500;
   }
 }
