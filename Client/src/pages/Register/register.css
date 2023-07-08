@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
 }
-.auth_title {
+.register_title {
   font-size: 30px;
   font-weight: 600;
   color: #333;
@@ -82,7 +82,7 @@ form {
   .registration_form {
     width: 100%;
   }
-  .auth_title {
+  .register_title {
     font-size: 20px;
     font-weight: 600;
   }
@@ -90,7 +90,7 @@ form {
     display: none;
   }
 }
-@media screen and (max-width: 450px){
+@media screen and (max-width: 450px) {
   .auth_title {
     font-size: 10px;
     font-weight: 300;
@@ -107,4 +107,4 @@ form {
   .registration_form input[type="submit"] {
     width: 90%;
   }
-} 
+}

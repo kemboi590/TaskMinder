@@ -36,7 +36,7 @@ function Register() {
     <div className="registration_page">
       <div className="registration_form">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h3 className="auth_title">REGISTER YOUR ACCOUNT</h3>
+          <h3 className="register_title">REGISTER YOUR ACCOUNT</h3>
           {/* Input username */}
           <>
             <input
