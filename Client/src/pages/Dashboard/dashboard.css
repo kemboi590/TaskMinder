@@ -3,8 +3,7 @@
   min-height: 90vh;
   display: flex;
   justify-content: center;
-  background: #f3f2ef;
-
+  background-color: #f3f2ef;
 }
 .right_page {
   width: 40%;
@@ -12,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ffff;
+  background-color: #ffff;
 }
 .imageGif {
   width: auto;
