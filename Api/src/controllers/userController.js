@@ -3,6 +3,16 @@ import config from "./../db/config.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+//loginRequired
+export const loginRequired = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    return res.status(401).json({ message: "Unauthorized user!" });
+  }
+};
+
+
 export const registerUser = async (req, res) => {
   const { username, password, email, role } = req.body;
   const hashedpassword = bcrypt.hashSync(password, 10);

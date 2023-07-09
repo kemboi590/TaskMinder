@@ -1,20 +1,18 @@
+import {
+  getAllComments,
+  createComment,
+  updateComment,
+  deleteComment,
+} from "./../controllers/commentController.js";
 
-
-
+import { loginRequired } from "./../controllers/userController.js";
 
 const comments = (app) => {
-   
-    app.route("/comments/:id").get((req, res) => {
-        res.send("Get a comment");
-    });
-    app.route("/comments/:id").post((req, res) => {
-        res.send("Add a comment");
-    });
-    app.route("/comments/:id").put((req, res) => {
-        res.send("Update a comment");
-    });
-    app.route("/comments/:id").delete((req, res) => {
-        res.send("Delete a comment");
-    });
-}
+  app
+    .route("/comments/:id")
+    .get(loginRequired, getAllComments)
+    .post(loginRequired, createComment)
+    .put(updateComment)
+    .delete(deleteComment);
+};
 export default comments;
