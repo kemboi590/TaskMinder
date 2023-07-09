@@ -15,8 +15,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-//JWT middleware
+// JWT middleware
 // app.use((req, res, next) => {
 //   if (
 //     req.headers &&
@@ -38,6 +39,7 @@ app.use(bodyParser.json());
 //   }
 // });
 
+// routes access app 
 user(app);
 comments(app);
 tasks(app);

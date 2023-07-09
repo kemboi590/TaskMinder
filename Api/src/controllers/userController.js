@@ -5,8 +5,8 @@ import jwt from "jsonwebtoken";
 
 export const registerUser = async (req, res) => {
   const { username, password, email, role } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, 10);
-  console.log(username, email, hashedPassword);
+  const hashedpassword = bcrypt.hashSync(password, 10);
+  console.log(username, email, hashedpassword);
   try {
     let pool = await sql.connect(config.sql);
     let result = await pool
@@ -25,11 +25,48 @@ export const registerUser = async (req, res) => {
         .input("username", sql.VarChar, username)
         .input("email", sql.VarChar, email)
         .input("role", sql.VarChar, role)
-        .input("hashedPassword", sql.VarChar, hashedPassword)
+        .input("hashedpassword", sql.VarChar, hashedpassword)
         .query(
-          "INSERT INTO Users (username, email, role, hashedPassword) VALUES (@username, @email, @role, @hashedPassword)"
+          "INSERT INTO Users (username, email, role, hashedpassword) VALUES (@username, @email, @role, @hashedpassword)"
         );
       return res.status(201).json({ message: "User created successfully" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    let pool = await sql.connect(config.sql);
+    let result = await pool
+      .request()
+      .input("email", sql.VarChar, email)
+      .query("SELECT * FROM Users WHERE email = @email");
+    const user = result.recordset[0];
+    console.log(user);
+    if (!user) {
+      return res.status(401).json({ error: "User does not exist" });
+    } else {
+      if (!bcrypt.compareSync(password, user.hashedpassword)){
+        return res.status(401).json({ error: "Incorrect password" });
+      } else {
+        const token = `JWT ${jwt.sign(
+          {
+            email: user.email,
+            user_id: user.user_id,
+            username: user.username,
+          },
+          config.jwt_secret,
+          { expiresIn: "1h" }
+        )}`;
+        res.status(200).json({
+          email: user.email,
+          user_id: user.user_id,
+          token: token,
+        });
+      }
     }
   } catch (error) {
     return res.status(500).json({ error: error.message });
