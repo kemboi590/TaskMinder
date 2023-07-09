@@ -1,7 +1,7 @@
+import { registerUser } from "../controllers/userController.js";
+
 const user = (app) => {
-  app.route("/auth/register").post((req, res) => {
-    res.send("Register user");
-  });
+  app.route("/auth/register").post(registerUser);
   app.route("/auth/login").post((req, res) => {
     res.send("Login user");
   });
