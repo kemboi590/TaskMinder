@@ -1,20 +1,15 @@
+import {
+  getAllTasks,
+  createTask,
+  getSingleTask,
+  updateTask,
+  deleteTask,
+} from "./../controllers/taskController.js";
+
 const tasks = (app) => {
-  app.route("/tasks").get((req, res) => {
-    res.send("Get all task");
-  });
-  app.route("/tasks").post((req, res) => {
-    res.send("create a task");
-  });
-  app.route("/tasks/:id").get((req, res) => {
-    res.send("Get single task");
-  });
- 
-  app.route("/tasks/:id").put((req, res) => {
-    res.send("Update a task");
-  });
-  app.route("/tasks/:id").delete((req, res) => {
-    res.send("Delete a task");
-  });
+  app.route("/tasks").get(getAllTasks).post(createTask);
+
+  app.route("/tasks/:id").get(getSingleTask).put(updateTask).delete(deleteTask);
 };
 
 export default tasks;
