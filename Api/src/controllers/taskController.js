@@ -1,7 +1,6 @@
 import sql from "mssql";
 import config from "./../db/config.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+
 
 // get all tasks
 export const getAllTasks = async (req, res) => {
