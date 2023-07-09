@@ -40,10 +40,11 @@ CREATE TABLE Comments (
 CREATE TABLE Notifications (
     notification_id INT IDENTITY(1,1) PRIMARY KEY,
     user_id INT,
-    timestamp DATETIME,
+    timestamp DATE,
     content VARCHAR(MAX),
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
+
 
 				--INSERTING DATA
 -- Insert data into Users table
@@ -98,6 +99,32 @@ END;
 
 
 EXEC GetCommentDetails @taskID = 2;
+
+
+				--GetUserNotifications
+
+CREATE PROCEDURE GetUserNotifications
+    @userID INT
+AS
+BEGIN
+    SELECT
+        N.notification_id,
+        N.user_id,
+        N.timestamp,
+        N.content,
+        U.username
+    FROM
+        Notifications N
+    INNER JOIN
+        Users U ON N.user_id = U.user_id
+    WHERE
+        N.user_id = @userID;
+END;
+
+EXEC GetUserNotifications @userID = 2;
+
+
+
 
 
 

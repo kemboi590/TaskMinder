@@ -12,7 +12,7 @@ export const loginRequired = (req, res, next) => {
   }
 };
 
-
+// register a user
 export const registerUser = async (req, res) => {
   const { username, password, email, role } = req.body;
   const hashedpassword = bcrypt.hashSync(password, 10);
@@ -46,6 +46,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
+// login a user
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {

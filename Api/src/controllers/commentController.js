@@ -1,7 +1,6 @@
 import sql from "mssql";
 import config from "./../db/config.js";
-import e from "express";
-import user from "../routes/userRoute.js";
+
 
 // get all comments
 export const getAllComments = async (req, res) => {
