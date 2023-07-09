@@ -22,16 +22,19 @@ CREATE TABLE Tasks (
 );
 
 
+
 -- Create Comments table
 CREATE TABLE Comments (
     comment_id INT IDENTITY(1,1) PRIMARY KEY,
     task_id INT,
     user_id INT,
-    timestamp DATETIME,
+    timestamp DATE,
     content VARCHAR(MAX),
-    FOREIGN KEY (task_id) REFERENCES Tasks(task_id),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+    FOREIGN KEY (task_id) REFERENCES Tasks(task_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) 
 );
+
+
 
 -- Create Notifications table
 CREATE TABLE Notifications (
@@ -45,27 +48,59 @@ CREATE TABLE Notifications (
 				--INSERTING DATA
 -- Insert data into Users table
 INSERT INTO Users (username, hashedpassword, email, role)
-VALUES ('john_doe', 'password123', 'john.doe@example.com', 'teammate'),
-       ('jane_smith', 'abc456', 'jane.smith@example.com', 'teammate'),
-       ('admin', 'adminpass', 'admin@example.com', 'teamlead');
+VALUES ('kemboi', 'pass123', 'kemboi@gmail.com', 'teammate'),
+       ('sarah', 'pass123', 'sarah@gmail.com', 'teammate'),
+       ('vincent', 'pass123', 'vincent@gmail.com', 'teamlead');
+	 
 
 -- Insert data into Tasks table
 INSERT INTO Tasks (title, description, created_at, due_date, priority, status, assigned_to)
-VALUES ('Task 1', 'Description for Task 1', '2023-07-01', '2023-07-10', 'medium', 'in progress', 1),
-       ('Task 2', 'Description for Task 2', '2023-07-02', '2023-07-15', 'high', 'in progress', 2),
-       ('Task 3', 'Description for Task 3', '2023-07-03', '2023-07-12', 'low', 'completed', 3);
+VALUES ('MERN', 'use mongodb', '2023-07-01', '2023-07-10', 'medium', 'in progress', 1),
+       ('SERN', 'use sql server', '2023-07-02', '2023-07-15', 'high', 'in progress', 2),
+       ('API', 'use rest api', '2023-07-03', '2023-07-12', 'low', 'completed', 3);
 
 -- Insert data into Comments table
 INSERT INTO Comments (task_id, user_id, timestamp, content)
-VALUES (1, 2, '2023-07-05 10:15:00', 'Comment 1 for Task 1'),
-       (2, 3, '2023-07-06 09:30:00', 'Comment 1 for Task 2'),
-       (3, 1, '2023-07-07 14:45:00', 'Comment 1 for Task 3');
+VALUES (1, 2, '2023-07-05 10:15:00', 'good job'),
+       (2, 3, '2023-07-06 09:30:00', 'do a correction'),
+       (3, 1, '2023-07-07 14:45:00', 'amaizing');
 
 -- Insert data into Notifications table
 INSERT INTO Notifications (user_id, timestamp, content)
-VALUES (1, '2023-07-05 12:30:00', 'Notification for User 1'),
-       (2, '2023-07-06 15:00:00', 'Notification for User 2'),
-       (3, '2023-07-07 16:45:00', 'Notification for User 3');
+VALUES (1, '2023-07-05 12:30:00', 'deadline is close'),
+       (2, '2023-07-06 15:00:00', 'you have new task'),
+       (3, '2023-07-07 16:45:00', 'your task has been viewed');
+
+
+
+	   --stored procedure
+	   CREATE PROCEDURE GetCommentDetails
+    @taskID INT
+AS
+BEGIN
+    SELECT 
+        C.comment_id,
+        C.task_id,
+        C.user_id,
+        U.username,
+        C.timestamp,
+        C.content,
+        T.title
+    FROM 
+        Comments C
+    INNER JOIN 
+        Users U ON C.user_id = U.user_id
+    INNER JOIN 
+        Tasks T ON C.task_id = T.task_id
+    WHERE 
+        C.task_id = @taskID;
+END;
+
+
+EXEC GetCommentDetails @taskID = 2;
+
+
+
 
 	   --QUERIES
 
@@ -76,6 +111,8 @@ SELECT * FROM Users;
  -- Retrieve all tasks:
 
 SELECT * FROM Tasks;
+
+--DELETE FROM Tasks WHERE task_id = 1
 
 -- Retrieve all comments:
 
