@@ -3,6 +3,7 @@ import config from "./../db/config.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+// get all tasks
 export const getAllTasks = async (req, res) => {
   try {
     let pool = await sql.connect(config.sql);
@@ -16,8 +17,6 @@ export const getAllTasks = async (req, res) => {
 //  Create a task
 export const createTask = async (req, res) => {
   try {
-    // const { user_id } = req.user;
-
     const {
       title,
       description,
@@ -30,7 +29,6 @@ export const createTask = async (req, res) => {
     let pool = await sql.connect(config.sql);
     await pool
       .request()
-      // .input("user_id", sql.Int, user_id)
       .input("title", sql.VarChar, title)
       .input("description", sql.VarChar, description)
       .input("created_at", sql.Date, created_at)
@@ -62,52 +60,50 @@ export const getSingleTask = async (req, res) => {
   }
 };
 
-
 // Update a task
 export const updateTask = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const {
-        title,
-        description,
-        created_at,
-        due_date,
-        priority,
-        status,
-        assigned_to,
-        } = req.body;
-        let pool = await sql.connect(config.sql);
-        await pool
-        .request()
-        .input("id", sql.Int, id)
-        .input("title", sql.VarChar, title)
-        .input("description", sql.VarChar, description)
-        .input("created_at", sql.Date, created_at)
-        .input("due_date", sql.Date, due_date)
-        .input("priority", sql.VarChar, priority)
-        .input("status", sql.VarChar, status)
-        .input("assigned_to", sql.VarChar, assigned_to)
-        .query(
-            "UPDATE Tasks SET title = @title, description = @description, created_at = @created_at, due_date = @due_date, priority = @priority, status = @status, assigned_to = @assigned_to WHERE task_id = @id"
-        );
-        res.status(200).json({ message: "Task updated successfully!" });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-}
- 
-// Delete a task
-export const deleteTask = async (req, res) => { 
-    try {
-        const { id } = req.params;
-        let pool = await sql.connect(config.sql);
-        await pool
-        .request()
-        .input("id", sql.Int, id)
-        .query("DELETE FROM Tasks WHERE task_id = @id");
-        res.status(200).json({ message: "Task deleted successfully!" });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-}
+  try {
+    const { id } = req.params;
+    const {
+      title,
+      description,
+      created_at,
+      due_date,
+      priority,
+      status,
+      assigned_to,
+    } = req.body;
+    let pool = await sql.connect(config.sql);
+    await pool
+      .request()
+      .input("id", sql.Int, id)
+      .input("title", sql.VarChar, title)
+      .input("description", sql.VarChar, description)
+      .input("created_at", sql.Date, created_at)
+      .input("due_date", sql.Date, due_date)
+      .input("priority", sql.VarChar, priority)
+      .input("status", sql.VarChar, status)
+      .input("assigned_to", sql.VarChar, assigned_to)
+      .query(
+        "UPDATE Tasks SET title = @title, description = @description, created_at = @created_at, due_date = @due_date, priority = @priority, status = @status, assigned_to = @assigned_to WHERE task_id = @id"
+      );
+    res.status(200).json({ message: "Task updated successfully!" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
+// Delete a task
+export const deleteTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+    let pool = await sql.connect(config.sql);
+    await pool
+      .request()
+      .input("id", sql.Int, id)
+      .query("DELETE FROM Tasks WHERE task_id = @id");
+    res.status(200).json({ message: "Task deleted successfully!" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
