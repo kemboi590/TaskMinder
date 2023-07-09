@@ -1,16 +1,16 @@
+import {
+  getUserNotifications,
+  createNotification,
+  deleteNotification,
+} from "../controllers/notificationController.js";
+import { loginRequired } from "../controllers/userController.js";
+
 const notifications = (app) => {
-  app.route("/notifications/:id").get((req, res) => {
-    res.send("Get a notification");
-  });
-  app.route("/notifications/:id").post((req, res) => {
-    res.send("Add a notification");
-  });
-  app.route("/notifications/:id").put((req, res) => {
-    res.send("Update a notification");
-  });
-  app.route("/notifications/:id").delete((req, res) => {
-    res.send("Delete a notification");
-  });
+  app
+    .route("/notifications/:id")
+    .get(loginRequired, getUserNotifications)
+    .delete(loginRequired, deleteNotification);
+  app.route("/notifications").post(loginRequired, createNotification);
 };
 
 export default notifications;

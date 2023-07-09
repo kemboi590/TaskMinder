@@ -12,7 +12,7 @@ const comments = (app) => {
     .route("/comments/:id")
     .get(loginRequired, getAllComments)
     .post(loginRequired, createComment)
-    .put(updateComment)
-    .delete(deleteComment);
+    .put(loginRequired, updateComment)
+    .delete(loginRequired, deleteComment);
 };
 export default comments;

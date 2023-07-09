@@ -6,10 +6,19 @@ import {
   deleteTask,
 } from "./../controllers/taskController.js";
 
-const tasks = (app) => {
-  app.route("/tasks").get(getAllTasks).post(createTask);
+import { loginRequired } from "../controllers/userController.js";
 
-  app.route("/tasks/:id").get(getSingleTask).put(updateTask).delete(deleteTask);
+const tasks = (app) => {
+  app
+    .route("/tasks")
+    .get(loginRequired, getAllTasks)
+    .post(loginRequired, createTask);
+
+  app
+    .route("/tasks/:id")
+    .get(loginRequired, getSingleTask)
+    .put(loginRequired, updateTask)
+    .delete(loginRequired, deleteTask);
 };
 
 export default tasks;
