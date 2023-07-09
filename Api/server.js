@@ -3,8 +3,12 @@ import config from "./src/db/config.js";
 import jwt from "jsonwebtoken";
 import cors from "cors";
 import bodyParser from "body-parser";
-//invoke express
 const app = express();
+
+import user from "./src/routes/userRoute.js";
+import comments from "./src/routes/commentsRoute.js";
+import tasks from "./src/routes/tasksRoutes.js";
+import notifications from "./src/routes/notificationsRoute.js";
 
 //built inmiddleware
 app.use(cors());
@@ -34,6 +38,10 @@ app.use(bodyParser.json());
 //   }
 // });
 
+user(app);
+comments(app);
+tasks(app);
+notifications(app);
 
 app.get("/", (req, res) => {
   res.send("Welcome to TaskMinder API");
