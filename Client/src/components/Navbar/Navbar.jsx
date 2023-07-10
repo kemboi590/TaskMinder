@@ -16,39 +16,37 @@ function Navbar() {
           <div className="myLogo">
             <img src={Icon} alt="icon" />
           </div>
-      {/* dasboard */}
-          <li>
-            <Link to="/">
+          {/* dasboard */}
+          <Link to="/">
+            <li>
               <ImHome />
               Dashboard
-            </Link>
-          </li>
-      {/* tasks */}
-          <li>
-            <Link to="/tasks">
+            </li>
+          </Link>
+          {/* tasks */}
+          <Link to="/tasks">
+            <li>
               <FaTasks />
               Tasks
-            </Link>
-          </li>
-
+            </li>
+          </Link>
         </div>
         {/* second nav div */}
         <div className="second_nav">
-
-        {/* register */}
-          <li>
-            <Link to="/register">
+          {/* register */}
+          <Link to="/register">
+            <li>
               <GiArchiveRegister />
               Register
-            </Link>
-          </li>
-        {/* login */}
-          <li>
-            <Link to="/login">
+            </li>
+          </Link>
+          {/* login */}
+          <Link to="/login">
+            <li>
               <MdOutlineLogin />
               Login
-            </Link>
-          </li>
+            </li>
+          </Link>
         </div>
       </ul>
     </div>
