@@ -6,7 +6,7 @@ import Icon from "../../Images/Icon.png";
 import { ImHome } from "react-icons/im";
 import { FaTasks } from "react-icons/fa";
 import { GiArchiveRegister } from "react-icons/gi";
-import {MdOutlineLogin} from "react-icons/md";
+import { MdOutlineLogin } from "react-icons/md";
 
 function Navbar() {
   return (
@@ -14,31 +14,41 @@ function Navbar() {
       <ul>
         {/* first nav div */}
         <div className="first_nav">
-        <div className="myLogo">
+          <div className="myLogo">
             <img src={Icon} alt="icon" />
           </div>
+      {/* dasboard */}
           <li>
             <Link to="/">
               <ImHome />
-              Dashboard </Link>
+              Dashboard
+            </Link>
           </li>
+      {/* tasks */}
           <li>
             <Link to="/tasks">
               <FaTasks />
-              Tasks </Link>
+              Tasks
+            </Link>
           </li>
+
         </div>
         {/* second nav div */}
         <div className="second_nav">
+
+        {/* register */}
           <li>
             <Link to="/register">
               <GiArchiveRegister />
-              Register </Link>
+              Register
+            </Link>
           </li>
+        {/* login */}
           <li>
             <Link to="/login">
               <MdOutlineLogin />
-              Login </Link>
+              Login
+            </Link>
           </li>
         </div>
       </ul>

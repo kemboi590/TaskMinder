@@ -9,7 +9,7 @@ function MainBar() {
   const selectedComponent = useSelector((state) => state.ui.selectedComponent);
   console.log("selectedComponent", selectedComponent);
 
-  const renderComponent = () => { 
+  const renderComponent = () => {
     switch (selectedComponent) {
       case "createTask":
         return <CreateTask />;
@@ -20,12 +20,10 @@ function MainBar() {
       default:
         return <CreateTask />;
     }
-  }
+  };
   return (
     <div className="main_bar">
-      <div className="main_wrapper">
-       {renderComponent()}
-      </div>
+      <div className="main_wrapper">{renderComponent()}</div>
     </div>
   );
 }
