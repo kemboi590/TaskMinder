@@ -1,5 +1,6 @@
 import React from "react";
 import "./navbar.css";
+
 import { Link } from "react-router-dom";
 import Icon from "../../Images/Icon.png";
 import { ImHome } from "react-icons/im";
@@ -16,37 +17,39 @@ function Navbar() {
           <div className="myLogo">
             <img src={Icon} alt="icon" />
           </div>
-          {/* dasboard */}
-          <Link to="/">
-            <li>
+      {/* dasboard */}
+          <li>
+            <Link to="/">
               <ImHome />
               Dashboard
-            </li>
-          </Link>
-          {/* tasks */}
-          <Link to="/tasks">
-            <li>
+            </Link>
+          </li>
+      {/* tasks */}
+          <li>
+            <Link to="/tasks">
               <FaTasks />
               Tasks
-            </li>
-          </Link>
+            </Link>
+          </li>
+
         </div>
         {/* second nav div */}
         <div className="second_nav">
-          {/* register */}
-          <Link to="/register">
-            <li>
+
+        {/* register */}
+          <li>
+            <Link to="/register">
               <GiArchiveRegister />
               Register
-            </li>
-          </Link>
-          {/* login */}
-          <Link to="/login">
-            <li>
+            </Link>
+          </li>
+        {/* login */}
+          <li>
+            <Link to="/login">
               <MdOutlineLogin />
               Login
-            </li>
-          </Link>
+            </Link>
+          </li>
         </div>
       </ul>
     </div>
