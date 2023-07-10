@@ -3,6 +3,10 @@ import "./navbar.css";
 
 import { Link } from "react-router-dom";
 import Icon from "../../Images/Icon.png";
+import { ImHome } from "react-icons/im";
+import { FaTasks } from "react-icons/fa";
+import { GiArchiveRegister } from "react-icons/gi";
+import {MdOutlineLogin} from "react-icons/md";
 
 function Navbar() {
   return (
@@ -14,19 +18,27 @@ function Navbar() {
             <img src={Icon} alt="icon" />
           </div>
           <li>
-            <Link to="/"> Dashboard </Link>
+            <Link to="/">
+              <ImHome />
+              Dashboard </Link>
           </li>
           <li>
-            <Link to="/tasks"> Tasks </Link>
+            <Link to="/tasks">
+              <FaTasks />
+              Tasks </Link>
           </li>
         </div>
         {/* second nav div */}
         <div className="second_nav">
           <li>
-            <Link to="/register"> Register </Link>
+            <Link to="/register">
+              <GiArchiveRegister />
+              Register </Link>
           </li>
           <li>
-            <Link to="/login"> Login </Link>
+            <Link to="/login">
+              <MdOutlineLogin />
+              Login </Link>
           </li>
         </div>
       </ul>
