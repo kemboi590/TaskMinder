@@ -27,12 +27,11 @@ function CreateTask() {
           <label htmlFor="status">Status</label>
           <br />
           {/* create a check box with a lable assign task to: */}
-        
           <label htmlFor="status">Assign Task To:</label>
-          
-          <input type="checkbox" name="status"  id="status" />
 
-          
+          <input type="checkbox" id="" value="Kemboi" />
+          <label htmlFor="">kemboi</label>
+
           <br />
           {/* calender to choose due date */}
           <label htmlFor="dueDate">Due Date</label>
