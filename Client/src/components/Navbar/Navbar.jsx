@@ -1,6 +1,5 @@
 import React from "react";
 import "./navbar.css";
-
 import { Link } from "react-router-dom";
 import Icon from "../../Images/Icon.png";
 import { ImHome } from "react-icons/im";
