@@ -1,10 +1,34 @@
 import React from "react";
 import "./createtask.css";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object().shape({
+  title: yup.string().required("Title is required"),
+  description: yup.string().required("Description is required"),
+  // assign to is an array
+  assigned_to: yup.array().min(1, "Assign to is required"),
+
+  created_at: yup.string().required("Due date is required"),
+  priority: yup.string().required("Priority is required"),
+});
 
 function CreateTask() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const onSubmit = (data) => {
+    console.log(data);
+    // reset();
+  };
   return (
     <div className="create_task_page">
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="task_form">
           <div>
             <label className="task_title"> Task Title</label>
@@ -13,8 +37,10 @@ function CreateTask() {
               className="title_input"
               type="tect"
               placeholder="your task title"
-              // {...register("Email")}
+              {...register("title")}
             />
+
+            {errors.title && <p className="errors">{errors.title.message}</p>}
           </div>
           <br />
           <div>
@@ -25,30 +51,38 @@ function CreateTask() {
               cols="30"
               rows="10"
               placeholder=" your task description"
-              // {...register("Email")}
+              {...register("description")}
             ></textarea>
+
+            {errors.description && (
+              <p className="errors">{errors.description.message}</p>
+            )}
           </div>
           <br />
           <div>
             <label className="task_assign_to">Assign Task To</label>
             <br />
             <div className="check_member">
-              <input type="checkbox" id="" value="Kemboi" />
+              <input
+                type="checkbox"
+                value="Kemboi"
+                {...register("assigned_to")}
+              />
+
               <label htmlFor="">kemboi</label>
-              <input type="checkbox" id="" value="Kemboi" />
+
+              <input
+                type="checkbox"
+                value="Kemboi"
+                {...register("assigned_to")}
+              />
               <label htmlFor="">kemboi</label>
+
               <br />
-              <input type="checkbox" id="" value="Kemboi" />
-              <label htmlFor="">kemboi</label>
-              <br />
-              <input type="checkbox" id="" value="Kemboi" />
-              <label htmlFor="">kemboi</label>
-              <br />
-              <input type="checkbox" id="" value="Kemboi" />
-              <label htmlFor="">kemboi</label>
-              <input type="checkbox" id="" value="Kemboi" />
-              <label htmlFor="">kemboi</label>
-              <br />
+
+              {errors.assigned_to && (
+                <p className="errors">{errors.assigned_to.message}</p>
+              )}
             </div>
           </div>
 
@@ -61,8 +95,12 @@ function CreateTask() {
               type="date"
               name="dueDate"
               className="dueDate_calender"
-              // {...register("Email")}
+              {...register("created_at")}
             />
+
+            {errors.created_at && (
+              <p className="errors">{errors.created_at.message}</p>
+            )}
           </div>
           <br />
           {/* set priority by using radio butons*/}
@@ -73,21 +111,26 @@ function CreateTask() {
               <input
                 type="radio"
                 className="radio_priority"
-                // {...register("Email")}
+                {...register("priority")}
               />
               <label className="task_priority">High</label>
               <input
                 type="radio"
                 className="radio_priority"
-                // {...register("Email")}
+                {...register("priority")}
               />
               <label className="task_priority">Medium</label>
               <input
                 type="radio"
                 className="radio_priority"
-                // {...register("Email")}
+                {...register("priority")}
               />
+
               <label className="priority">Low</label>
+
+              {errors.priority && (
+                <p className="errors">{errors.priority.message}</p>
+              )}
             </div>
           </div>
           <br />

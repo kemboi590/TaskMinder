@@ -11,4 +11,8 @@ body {
   background: #f3f2ef;
   /* background: white; */
 }
-
+.errors{
+  color: red;
+  font-size: 15px;
+  
+}
