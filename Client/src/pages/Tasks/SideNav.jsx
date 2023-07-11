@@ -8,13 +8,11 @@ import { BiSolidContact } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { display } from "./../../Redux/apiCall";
 
-
 function SideNav() {
   const dispatch = useDispatch();
   const handleCreateTask = () => {
     console.log("create task clicked");
     display(dispatch, "createTask");
-    // dispatch type create task
   };
   const handleViewTask = () => {
     console.log("view task clicked");
@@ -35,9 +33,8 @@ function SideNav() {
       {/* Create Task */}
 
       <div className="create_task" onClick={handleCreateTask}>
-        
-          <BiAddToQueue className="addTask" />
-          Create Task
+        <BiAddToQueue className="addTask" />
+        Create Task
       </div>
 
       {/* View Tasks */}

@@ -9,7 +9,16 @@
   justify-content: flex-start;
   background: #c8bd9e5c;
   box-shadow: 0px 0px 5px 0px #0000005c;
-  font-size: 20px;
+  margin-top: 60px;
+
+  /* position: fixed;*/
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 20%;
 }
 .task_logo {
   display: flex;

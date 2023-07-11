@@ -34,15 +34,6 @@ function CreateTask() {
             <br />
             <div className="check_member">
               <input type="checkbox" id="" value="Kemboi" />
-              <label classname="assignee">kemboi</label>
-              <br />
-              <input type="checkbox" id="" value="Kemboi" />
-              <label classname="assignee">kemboi</label>
-              <br />
-              <input type="checkbox" id="" value="Kemboi" />
-              <label htmlFor="">kemboi</label>
-              <br />
-              <input type="checkbox" id="" value="Kemboi" />
               <label htmlFor="">kemboi</label>
               <input type="checkbox" id="" value="Kemboi" />
               <label htmlFor="">kemboi</label>
@@ -57,9 +48,6 @@ function CreateTask() {
               <label htmlFor="">kemboi</label>
               <input type="checkbox" id="" value="Kemboi" />
               <label htmlFor="">kemboi</label>
-              <br />
-              <input type="checkbox" id="" value="Kemboi" />
-              <label classname="assignee">kemboi</label>
               <br />
             </div>
           </div>

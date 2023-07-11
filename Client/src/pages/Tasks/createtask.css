@@ -1,5 +1,5 @@
 .create_task_page {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .task_form {
