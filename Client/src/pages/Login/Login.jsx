@@ -7,6 +7,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import authimage from "../../Images/authimage.jpg";
 import { apidomain } from "../../utils/domain";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../Redux/apiCall";
+import { useSelector, useDispatch } from "react-redux";
 import Axios from "axios";
 
 const schema = yup.object().shape({
@@ -19,6 +21,8 @@ const schema = yup.object().shape({
 });
 
 function Login() {
+  const dispatch = useDispatch();
+  console.log(useSelector((state) => state.user.user));
   const navigate = useNavigate();
   const {
     register,
@@ -28,18 +32,20 @@ function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = (data) => {
-    Axios.post(`${apidomain}/auth/login`, data)
-      .then((response) => {
-        if (response.data.token) {
-          console.log(response.data);
-          console.log("login success");
-          navigate("/tasks");
-        }
-        // reset();
-      })
-      .catch(({ response }) => {
-       alert(response.data.error);
-      });
+    loginUser(dispatch, data,);
+    
+    // Axios.post(`${apidomain}/auth/login`, data)
+    //   .then((response) => {
+    //     if (response.data.token) {
+    //       console.log(response.data);
+    //       console.log("login success");
+    //       navigate("/tasks");
+    //     }
+    //     // reset();
+    //   })
+    //   .catch(({ response }) => {
+    //     alert(response.data.error);
+    //   });
   };
   return (
     <div className="login_page">
