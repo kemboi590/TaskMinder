@@ -5,17 +5,21 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import authimage from "../../Images/authimage.jpg";
+import { apidomain } from "../../utils/domain";
+import { useNavigate } from "react-router-dom";
+import Axios from "axios";
 
 const schema = yup.object().shape({
-  UserName: yup.string().required("Full name is required"),
-  Email: yup.string().email("Email is invalid").required("Email is required"),
-  Password: yup
+  // UserName: yup.string().required("Full name is required"),
+  email: yup.string().email("email is invalid").required("Email is required"),
+  password: yup
     .string()
-    .min(4, "Password must be at least 4 characters")
-    .required("Password is required"),
+    .min(4, "password must be at least 4 characters")
+    .required("password is required"),
 });
 
 function Login() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -24,35 +28,33 @@ function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = (data) => {
-    console.log(data);
-    // reset();
+    Axios.post(`${apidomain}/auth/login`, data)
+      .then((response) => {
+        if (response.data.token) {
+          console.log(response.data);
+          console.log("login success");
+          navigate("/tasks");
+        }
+        // reset();
+      })
+      .catch(({ response }) => {
+       alert(response.data.error);
+      });
   };
   return (
     <div className="login_page">
       <div className="login_form">
         <form onSubmit={handleSubmit(onSubmit)}>
           <h3 className="login_title">LOGIN YOUR ACCOUNT</h3>
-          {/* Input username */}
-          <>
-            <input
-              className="inputFieldLogin"
-              type="text"
-              placeholder="Your username"
-              {...register("UserName")}
-            />
-            <p>{errors.UserName?.message}</p>
 
-          </>
-          <br />
-          {/* Input email */}
           <>
             <input
               className="inputFieldLogin"
               type="email"
               placeholder="Your email"
-              {...register("Email")}
+              {...register("email")}
             />
-            <p>{errors.Email?.message}</p>
+            <p className="errors">{errors.email?.message}</p>
           </>
           <br />
 
@@ -62,9 +64,9 @@ function Login() {
               className="inputFieldLogin"
               type="password"
               placeholder="Your password"
-              {...register("Password")}
+              {...register("password")}
             />
-            <p>{errors.Password?.message}</p>
+            <p className="errors">{errors.password?.message}</p>
           </>
           <br />
           {/* Confirm password */}
