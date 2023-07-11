@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import authimage from "../../Images/authimage.jpg";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { apidomain } from "../../utils/domain";
 
 const schema = yup.object().shape({
@@ -22,6 +23,7 @@ const schema = yup.object().shape({
 });
 
 function Register() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -32,11 +34,14 @@ function Register() {
   const onSubmit = (data) => {
     Axios.post(`${apidomain}/auth/register`, data)
       .then((response) => { 
-        console.log(response);
-        reset();
+        response.data.message && alert(response.data.message);
+        navigate("/login");
+        // console.log(response);
+        // reset();
       })
       .catch(({ response }) => {
-        console.log(response);
+        alert(response.data.error);
+        // console.log(response);
       } );
 
     // console.log(data);
