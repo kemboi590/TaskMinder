@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   background-color: #f3f2ef;
+  margin-top: 60px;
 }
 .right_page {
   width: 40%;

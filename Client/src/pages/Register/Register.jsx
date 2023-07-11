@@ -4,18 +4,20 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import authimage from "../../Images/authimage.jpg";
+import Axios from "axios";
+import { apidomain } from "../../utils/domain";
 
 const schema = yup.object().shape({
-  UserName: yup.string().required("Full name is required"),
-  Email: yup.string().email("Email is invalid").required("Email is required"),
-  Role: yup.string().required("Role is required"),
-  Password: yup
+  username: yup.string().required("Full name is required"),
+  email: yup.string().email("email is invalid").required("email is required"),
+  role: yup.string().required("role is required"),
+  password: yup
     .string()
-    .min(4, "Password must be at least 4 characters")
-    .required("Password is required"),
-  ConfirmPassword: yup
+    .min(4, "password must be at least 4 characters")
+    .required("password is required"),
+  Confirmpassword: yup
     .string()
-    .oneOf([yup.ref("Password"), null], "Passwords must match")
+    .oneOf([yup.ref("password"), null], "passwords must match")
     .required("Confirm password is required"),
 });
 
@@ -28,7 +30,16 @@ function Register() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = (data) => {
-    console.log(data);
+    Axios.post(`${apidomain}/auth/register`, data)
+      .then((response) => { 
+        console.log(response);
+        reset();
+      })
+      .catch(({ response }) => {
+        console.log(response);
+      } );
+
+    // console.log(data);
     // reset();
   };
 
@@ -43,9 +54,9 @@ function Register() {
               className="inputFieldLogin"
               type="text"
               placeholder="Your username"
-              {...register("UserName")}
+              {...register("username")}
             />
-            <p>{errors.UserName?.message}</p>
+            <p>{errors.username?.message}</p>
           </>
           <br />
           {/* Input email */}
@@ -54,20 +65,20 @@ function Register() {
               className="inputFieldLogin"
               type="email"
               placeholder="Your email"
-              {...register("Email")}
+              {...register("email")}
             />
-            <p>{errors.Email?.message}</p>
+            <p>{errors.email?.message}</p>
           </>
           <br />
           {/* Select role */}
           <>
-            <label htmlFor="Role"></label>
-            <select id="Role" {...register("Role")}>
+            <label htmlFor="role"></label>
+            <select  {...register("role")}>
               <option value="">Select Your Role</option>
               <option value="TeamLead">TeamLead</option>
               <option value="Teammate">Teammate</option>
             </select>
-            <p>{errors.Role?.message}</p>
+            <p>{errors.role?.message}</p>
           </>
           <br />
           {/* Input password */}
@@ -76,9 +87,9 @@ function Register() {
               className="inputFieldLogin"
               type="password"
               placeholder="Your password"
-              {...register("Password")}
+              {...register("password")}
             />
-            <p>{errors.Password?.message}</p>
+            <p>{errors.password?.message}</p>
           </>
           <br />
           {/* Confirm password */}
@@ -87,9 +98,9 @@ function Register() {
               className="inputFieldLogin"
               type="password"
               placeholder="Confirm your password"
-              {...register("ConfirmPassword")}
+              {...register("Confirmpassword")}
             />
-            <p>{errors.ConfirmPassword?.message}</p>
+            <p>{errors.Confirmpassword?.message}</p>
           </>
           <br />
           <>

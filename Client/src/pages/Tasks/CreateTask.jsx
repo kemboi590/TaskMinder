@@ -4,13 +4,14 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+
 const schema = yup.object().shape({
   title: yup.string().required("Title is required"),
   description: yup.string().required("Description is required"),
   // assign to is an array
   assigned_to: yup.array().min(1, "Assign to is required"),
 
-  created_at: yup.string().required("Due date is required"),
+  due_date: yup.string().required("Due date is required"),
   priority: yup.string().required("Priority is required"),
 });
 
@@ -23,6 +24,8 @@ function CreateTask() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = (data) => {
+
+
     console.log(data);
     // reset();
   };
@@ -95,11 +98,11 @@ function CreateTask() {
               type="date"
               name="dueDate"
               className="dueDate_calender"
-              {...register("created_at")}
+              {...register("due_date")}
             />
 
-            {errors.created_at && (
-              <p className="errors">{errors.created_at.message}</p>
+            {errors.due_date && (
+              <p className="errors">{errors.due_date.message}</p>
             )}
           </div>
           <br />
