@@ -110,18 +110,21 @@ function CreateTask() {
             <div className="radio_task">
               <input
                 type="radio"
+                name="priority"
                 className="radio_priority"
                 {...register("priority")}
               />
               <label className="task_priority">High</label>
               <input
                 type="radio"
+                name="priority"
                 className="radio_priority"
                 {...register("priority")}
               />
               <label className="task_priority">Medium</label>
               <input
                 type="radio"
+                name="priority"
                 className="radio_priority"
                 {...register("priority")}
               />
