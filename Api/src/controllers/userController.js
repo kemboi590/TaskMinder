@@ -70,7 +70,7 @@ export const loginUser = async (req, res) => {
             username: user.username,
           },
           config.jwt_secret,
-          { expiresIn: "1h" }
+          { expiresIn: "30d" }
         )}`;
         res.status(200).json({
           username: user.username,
@@ -86,8 +86,8 @@ export const loginUser = async (req, res) => {
   }
 };
 
-
-export const getAllUsers = async (req, res) => { 
+// get all users
+export const getAllUsers = async (req, res) => {
   try {
     let pool = await sql.connect(config.sql);
     let result = await pool
@@ -102,4 +102,4 @@ export const getAllUsers = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
-}
+};

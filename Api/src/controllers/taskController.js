@@ -5,7 +5,7 @@ import config from "./../db/config.js";
 export const getAllTasks = async (req, res) => {
   try {
     let pool = await sql.connect(config.sql);
-    let result = await pool.request().query("SELECT * FROM Tasks");
+    let result = await pool.request().query("EXEC GetTaskDetails");
     if (result.recordset.length === 0) {
       res.status(404).json({ message: "No tasks found!" });
     } else {
