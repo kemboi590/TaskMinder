@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./login.css";
 
 import { useForm } from "react-hook-form";
@@ -34,8 +34,7 @@ function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = (data) => {
-    loginUser(dispatch, data);
-    // reset();
+    loginUser(dispatch, data, () => navigate("/tasks"));
   };
   return (
     <div className="login_page">

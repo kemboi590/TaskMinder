@@ -2,14 +2,17 @@ import React from "react";
 import "./profile.css";
 import { useSelector, useDispatch } from "react-redux";
 import { logOutuser } from "../../Redux/apiCall";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
+  const navigate = useNavigate();
   const userData = useSelector((state) => state.user.user);
   console.log(userData);
 
   const dispatch = useDispatch();
   const hadleLogOut = () => {
     logOutuser(dispatch);
+    navigate("/login");
     alert("logout success");
   };
   return (

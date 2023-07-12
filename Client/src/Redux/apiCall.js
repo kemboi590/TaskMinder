@@ -8,15 +8,16 @@ export const display = (dispatch, component) => {
   dispatch(selectComponent(component));
 };
 
-export const loginUser = async (dispatch, user) => {
+export const loginUser = async (dispatch, user, callback) => {
   // console.log(user);
   dispatch(loginStart());
   try {
     const { data } = await Axios.post(`${apidomain}/auth/login`, user);
     if (data.token) {
-      console.log(data);
+      // console.log(data);
       dispatch(loginSuccess(data));
       alert("Login successful");
+      callback();
     }
   } catch ({ response }) {
     dispatch(loginFailure());
@@ -25,6 +26,8 @@ export const loginUser = async (dispatch, user) => {
 };
 
 export const logOutuser = async (dispatch) => {
-  console.log(dispatch);
+  // console.log(dispatch);
   dispatch(logOut());
 };
+
+
