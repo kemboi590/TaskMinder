@@ -38,7 +38,7 @@ function CreateTask() {
           Authorization: `${userData.token}`,
         },
       });
-      console.log(response);
+      // console.log(response);
       setUsers(response.data);
     } catch (error) {
       console.log("error fetching users");
@@ -63,13 +63,14 @@ function CreateTask() {
       },
     })
       .then((resonse) => {
-        console.log(resonse);
+        // console.log(resonse);
         alert(resonse.data.message);
         // navigate("/tasks");
         
         // reset();
       })
       .catch((resonse) => {
+        alert("Oops! Something went wrong, try again later")
         console.log(resonse);
       });
     // console.log(data);
