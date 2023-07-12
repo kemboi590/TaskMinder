@@ -2,8 +2,17 @@ import React from "react";
 import "./dashboard.css";
 
 import TaskGif from "../../Images/DashboardGif.gif";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+  const navigate = useNavigate();
+
+  const handleRegisterBTN = () => {
+    navigate("/register");
+  };
+  const handleLoginBTN = () => {
+    navigate("/login");
+  };
   return (
     <div className="dashboard_page">
       <div className="right_page">
@@ -24,11 +33,10 @@ function Dashboard() {
         <p className="start_today"> Start Today: </p>
 
         <div className="home_buttons">
-          <button>REGISTER</button>
-          <button>LOGIN</button>
+          <button onClick={handleRegisterBTN}>REGISTER</button>
+          <button onClick={handleLoginBTN}>LOGIN</button>
         </div>
       </div>
-      
     </div>
   );
 }
