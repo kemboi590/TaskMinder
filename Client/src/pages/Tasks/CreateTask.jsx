@@ -1,21 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./createtask.css";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import Axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { apidomain } from "../../utils/domain";
+import { useSelector } from "react-redux";
 
 const schema = yup.object().shape({
   title: yup.string().required("Title is required"),
   description: yup.string().required("Description is required"),
-  // assign to is an array
-  assigned_to: yup.array().min(1, "Assign to is required"),
+  assigned_to: yup.number("Assign to is required"),
+  // assigned_to: yup.array().of(yup.number()).min(1, "Assign to is required"),
 
-  due_date: yup.string().required("Due date is required"),
+  due_date: yup
+    .string()
+    .required("Due date is required")
+    .test("due-date", "Due date must be in the future", (value) => {
+      const selectedDate = new Date(value);
+      const currentDate = new Date();
+      return selectedDate >= currentDate;
+    }),
   priority: yup.string().required("Priority is required"),
 });
 
 function CreateTask() {
+  const [users, setUsers] = useState([]);
+  const userData = useSelector((state) => state.user.user);
+  const navigate = useNavigate();
+  // console.log(userData);
+
+  const getAllUsers = async () => {
+    try {
+      const response = await Axios.get(`${apidomain}/users`, {
+        headers: {
+          Authorization: `${userData.token}`,
+        },
+      });
+      console.log(response);
+      setUsers(response.data);
+    } catch (error) {
+      console.log("error fetching users");
+    }
+  };
+
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -24,9 +57,22 @@ function CreateTask() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = (data) => {
-
-
-    console.log(data);
+    Axios.post(`${apidomain}/tasks`, data, {
+      headers: {
+        Authorization: `${userData.token}`,
+      },
+    })
+      .then((resonse) => {
+        console.log(resonse);
+        alert(resonse.data.message);
+        // navigate("/tasks");
+        
+        // reset();
+      })
+      .catch((resonse) => {
+        console.log(resonse);
+      });
+    // console.log(data);
     // reset();
   };
   return (
@@ -66,22 +112,17 @@ function CreateTask() {
             <label className="task_assign_to">Assign Task To</label>
             <br />
             <div className="check_member">
-              <input
-                type="checkbox"
-                value="Kemboi"
-                {...register("assigned_to")}
-              />
+              {users.map((user) => (
+                <React.Fragment key={user.user_id}>
+                  <input
+                    type="radio"
+                    value={user.user_id}
+                    {...register("assigned_to")}
+                  />
 
-              <label htmlFor="">kemboi</label>
-
-              <input
-                type="checkbox"
-                value="Kemboi"
-                {...register("assigned_to")}
-              />
-              <label htmlFor="">kemboi</label>
-
-              <br />
+                  <label htmlFor="">{user.username}</label>
+                </React.Fragment>
+              ))}
 
               {errors.assigned_to && (
                 <p className="errors">{errors.assigned_to.message}</p>
@@ -114,6 +155,7 @@ function CreateTask() {
               <input
                 type="radio"
                 name="priority"
+                value="High"
                 className="radio_priority"
                 {...register("priority")}
               />
@@ -121,6 +163,7 @@ function CreateTask() {
               <input
                 type="radio"
                 name="priority"
+                value="Medium"
                 className="radio_priority"
                 {...register("priority")}
               />
@@ -128,6 +171,7 @@ function CreateTask() {
               <input
                 type="radio"
                 name="priority"
+                value="Low"
                 className="radio_priority"
                 {...register("priority")}
               />
