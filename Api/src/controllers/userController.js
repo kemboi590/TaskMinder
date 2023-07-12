@@ -85,3 +85,21 @@ export const loginUser = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+
+export const getAllUsers = async (req, res) => { 
+  try {
+    let pool = await sql.connect(config.sql);
+    let result = await pool
+      .request()
+      .query("SELECT user_id, username FROM Users");
+    const users = result.recordset;
+    if (!users) {
+      return res.status(401).json({ error: "No users found" });
+    } else {
+      res.status(200).json(users);
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}

@@ -37,7 +37,7 @@ export const createTask = async (req, res) => {
       .input("due_date", sql.Date, due_date)
       .input("priority", sql.VarChar, priority)
       .input("status", sql.VarChar, status)
-      .input("assigned_to", sql.VarChar, assigned_to)
+      .input("assigned_to", sql.Int, assigned_to)
       .query(
         "INSERT INTO Tasks ( title, description, created_at, due_date, priority, status, assigned_to) VALUES ( @title, @description,  GETDATE(), @due_date, @priority, @status, @assigned_to)"
       );
