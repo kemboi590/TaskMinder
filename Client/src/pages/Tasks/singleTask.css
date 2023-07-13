@@ -1,22 +1,21 @@
 .single_task_page {
-    margin-top: 60px;
-  }
-  
-  .single_task_table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .single_task_table td {
-    padding: 8px;
-    border: 1px solid #ddd;
-  }
-  
-  .single_task_table td:first-child {
-    font-weight: bold;
-  }
-  
-  .single_task_table tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
+  margin-top: 60px;
+}
+
+.single_task_table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.single_task_table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.single_task_table td:first-child {
+  font-weight: bold;
+}
+
+.single_task_table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}

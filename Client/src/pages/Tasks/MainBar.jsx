@@ -18,7 +18,7 @@ function MainBar() {
       case "contactPage":
         return <Contact />;
       default:
-        return <CreateTask />;
+        return <ViewTask />;
     }
   };
   return (
