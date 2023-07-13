@@ -56,7 +56,7 @@ export const getSingleTask = async (req, res) => {
     let result = await pool
       .request()
       .input("id", sql.Int, id)
-      .query("SELECT * FROM Tasks WHERE task_id = @id");
+      .query("EXEC GetSingleTaskDetails @taskID = @id");
 
     if (result.recordset.length === 0) {
       res.status(404).json({ message: "Task not found!" });
