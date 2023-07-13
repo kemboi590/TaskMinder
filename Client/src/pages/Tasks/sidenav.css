@@ -46,7 +46,7 @@
   cursor: pointer;
 }
 .addTask {
-  font-size: 50px;
+  font-size: 45px;
 }
 .view_Tasks {
   border-bottom: #888 1px solid;
@@ -74,5 +74,5 @@
   cursor: pointer;
 }
 .contacticon {
-  font-size: 40px;
+  font-size: 38px;
 }

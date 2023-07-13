@@ -4,10 +4,12 @@ import Axios from "axios";
 import { apidomain } from "../../utils/domain";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function ViewTask() {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.user);
+  console.log(userData)
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [titleFilter, setTitleFilter] = useState("");
@@ -91,6 +93,7 @@ function ViewTask() {
         const dueDateTime = dueDate.toLocaleTimeString();
 
         return (
+          <Link to={`/tasks/${task.task_id}`} key={task.task_id }>
           <div className="task_card" key={task.task_id}>
             <div className="task_title">
               <h4>Task Title: {task.title}</h4>
@@ -115,7 +118,8 @@ function ViewTask() {
                 <p>Status: Not yet started</p>
               </div>
             </div>
-          </div>
+            </div>
+            </Link>
         );
       })}
     </div>

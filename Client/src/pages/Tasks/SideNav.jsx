@@ -45,7 +45,7 @@ function SideNav() {
       {/* Contact Us */}
       <div className="contact_us" onClick={handleContact}>
         <BiSolidContact className="contacticon" />
-        Contact Us
+        Support
       </div>
     </div>
   );

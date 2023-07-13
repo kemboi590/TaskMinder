@@ -7,6 +7,7 @@ import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound/NotFound";
 import Tasks from "./pages/Tasks/Tasks";
 import Profile from "./pages/Profile/Profile";
+import SingleTask from "./pages/Tasks/SingleTask";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/tasks/:id" element={<SingleTask />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
