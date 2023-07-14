@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./createtask.css";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,7 +11,6 @@ const schema = yup.object().shape({
   title: yup.string().required("Title is required"),
   description: yup.string().required("Description is required"),
   assigned_to: yup.number("Assign to is required"),
-  // assigned_to: yup.array().of(yup.number()).min(1, "Assign to is required"),
 
   due_date: yup
     .string()
@@ -25,7 +23,25 @@ const schema = yup.object().shape({
   priority: yup.string().required("Priority is required"),
 });
 
-function CreateTask() {
+function UpdateTask({ setshowUpdateForm, task, fetchSingleTask }) {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [assigned_to, setAssigned_to] = useState("");
+  const [due_date, setDue_date] = useState("");
+  const [priority, setPriority] = useState("");
+
+  useEffect(() => {
+    if (task) {
+      setTitle(task.title);
+      setDescription(task.description);
+      setAssigned_to(task.assigned_to);
+        // setDue_date(task.due_date);
+        const formattedDueDate = task.due_date.split("T")[0]; // Extract the date part
+        setDue_date(formattedDueDate);
+      setPriority(task.priority);
+    }
+  }, [task]);
+
   const [users, setUsers] = useState([]);
   const userData = useSelector((state) => state.user.user);
   const navigate = useNavigate();
@@ -57,26 +73,9 @@ function CreateTask() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = (data) => {
-    Axios.post(`${apidomain}/tasks`, data, {
-      headers: {
-        Authorization: `${userData.token}`,
-      },
-    })
-      .then((resonse) => {
-        // console.log(resonse);
-        alert(resonse.data.message);
-        // navigate("/tasks");
-        
-        // reset();
-      })
-      .catch((resonse) => {
-        alert("Oops! Something went wrong, try again later")
-        console.log(resonse);
-      });
-    // console.log(data);
-    // reset();
+    console.log(data);
   };
-  
+
   return (
     <div className="create_task_page">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -85,8 +84,10 @@ function CreateTask() {
             <label className="task_title"> Task Title</label>
             <br />
             <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               className="title_input"
-              type="tect"
+              type="text"
               placeholder="your task title"
               {...register("title")}
             />
@@ -98,6 +99,8 @@ function CreateTask() {
             <label className="task_description">Description</label>
             <br />
             <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               className="description_input"
               cols="30"
               rows="10"
@@ -138,6 +141,8 @@ function CreateTask() {
             <label className="task_dueDate">Due Date</label>
             <br />
             <input
+              value={due_date}
+              onChange={(e) => setDue_date(e.target.value)}
               type="date"
               name="dueDate"
               className="dueDate_calender"
@@ -195,4 +200,4 @@ function CreateTask() {
   );
 }
 
-export default CreateTask;
+export default UpdateTask;

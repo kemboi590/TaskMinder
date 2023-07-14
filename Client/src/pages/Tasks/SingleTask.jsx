@@ -4,11 +4,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Axios from "axios";
 import { apidomain } from "./../../utils/domain";
+import UpdateTask from "./UpdateTask";
 
 function SingleTask() {
   const { id } = useParams();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.user);
+  const [tempTaskData, setTempTaskData] = useState([]);
+  const [showUpdateForm, setshowUpdateForm] = useState(false);
 
   const [task, setTask] = useState([]);
 
@@ -20,9 +23,9 @@ function SingleTask() {
         },
       });
       setTask(response.data);
+      // console.log(response);
+    } catch (response) {
       console.log(response);
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -30,16 +33,38 @@ function SingleTask() {
     fetchSingleTask();
   }, [id]);
 
-  const haddleClose = () => {
+  const handleClose = () => {
     navigate("/tasks");
+  };
+
+  const handleUpdate = (task) => {
+    setTempTaskData(task);
+    setshowUpdateForm(!showUpdateForm);
+ 
+    // navigate("/tasks");
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await Axios.delete(`${apidomain}/tasks/${id}`, {
+        headers: {
+          Authorization: `${userData.token}`,
+        },
+      });
+      console.log(response);
+      navigate("/tasks");
+    } catch (response) {
+      console.log(response);
+    }
   };
 
   return (
     <div className="task_page">
-      <table className="single_task_table">
+      <table className="single_task_table" >
         <caption className="single_task_title">SINGLE TASK</caption>
         <tbody>
-          {task.map((task) => {
+          {task.map((task, index) => {
+          
             // for created at
             const createdAt = new Date(task.created_at);
             const CreatedDate = createdAt.toDateString();
@@ -50,7 +75,7 @@ function SingleTask() {
             const dueDateDate = dueDate.toDateString();
             const dueDateTime = dueDate.toLocaleTimeString();
             return (
-              <React.Fragment key={task.id}>
+              <React.Fragment key={index}>
                 <tr>
                   <td>Title:</td>
                   <td>{task.title}</td>
@@ -103,11 +128,22 @@ function SingleTask() {
           })}
         </tbody>
       </table>
+
       <div className="single_task_buttons">
-        <button onClick={haddleClose}> Close </button>
-        <button> Update </button>
-        <button> Delete </button>
+        <button onClick={handleClose}> Close </button>
+        <button onClick={() => handleUpdate(task[0])}> Update </button>
+        <button onClick={handleDelete}> Delete </button>
       </div>
+
+      {showUpdateForm && (
+        <div className="update_task_form">
+          <UpdateTask
+            setshowUpdateForm={setshowUpdateForm}
+            task={tempTaskData}
+            fetchSingleTask={fetchSingleTask}
+          />
+        </div>
+      )}
     </div>
   );
 }
