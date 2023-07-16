@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 function ViewTask() {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.user);
-  console.log(userData)
+  // console.log(userData)
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [titleFilter, setTitleFilter] = useState("");
@@ -24,7 +24,7 @@ function ViewTask() {
         },
       });
       setTasks(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (response) {
       console.log(response);
     }

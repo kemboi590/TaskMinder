@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { apidomain } from "../../utils/domain";
 import { useSelector } from "react-redux";
 
+// schema to do form validation when data is submitted
 const schema = yup.object().shape({
   title: yup.string().required("Title is required"),
   description: yup.string().required("Description is required"),
@@ -17,6 +18,7 @@ const schema = yup.object().shape({
     .string()
     .required("Due date is required")
     .test("due-date", "Due date must be in the future", (value) => {
+      //validating that date is future
       const selectedDate = new Date(value);
       const currentDate = new Date();
       return selectedDate >= currentDate;
@@ -27,9 +29,9 @@ const schema = yup.object().shape({
 function CreateTask() {
   const [users, setUsers] = useState([]);
   const userData = useSelector((state) => state.user.user);
-  const navigate = useNavigate();
   // console.log(userData);
-
+  const navigate = useNavigate();
+  // get all users in the database
   const getAllUsers = async () => {
     try {
       const response = await Axios.get(`${apidomain}/users`, {
@@ -46,7 +48,7 @@ function CreateTask() {
 
   useEffect(() => {
     getAllUsers();
-  }, []);
+  }, []); //get all users in page reload
 
   const {
     register,
@@ -64,8 +66,7 @@ function CreateTask() {
       .then((resonse) => {
         // console.log(resonse);
         alert(resonse.data.message);
-        // navigate("/tasks");
-
+        navigate("/tasks");
         // reset();
       })
       .catch((resonse) => {
@@ -73,7 +74,6 @@ function CreateTask() {
         console.log(resonse);
       });
     // console.log(data);
-    // reset();
   };
 
   return (
@@ -113,6 +113,7 @@ function CreateTask() {
             <label className="task_assign_to">Assign Task To</label>
             <br />
             <div className="check_member">
+              {/* mapping users */}
               {users.map((user) => (
                 <React.Fragment key={user.user_id}>
                   <input

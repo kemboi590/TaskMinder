@@ -130,7 +130,7 @@ function SingleTask() {
       </table>
 
       <div className="single_task_buttons">
-        <button onClick={handleClose}> Close </button>
+        <button onClick={handleClose}> Back </button>
         <button onClick={() => handleUpdate(task[0])}> Update </button>
         <button onClick={handleDelete}> Delete </button>
       </div>
