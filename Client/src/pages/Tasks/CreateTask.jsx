@@ -12,7 +12,6 @@ const schema = yup.object().shape({
   title: yup.string().required("Title is required"),
   description: yup.string().required("Description is required"),
   assigned_to: yup.number("Assign to is required"),
-  // assigned_to: yup.array().of(yup.number()).min(1, "Assign to is required"),
 
   due_date: yup
     .string()
@@ -66,17 +65,17 @@ function CreateTask() {
         // console.log(resonse);
         alert(resonse.data.message);
         // navigate("/tasks");
-        
+
         // reset();
       })
       .catch((resonse) => {
-        alert("Oops! Something went wrong, try again later")
+        alert("Oops! Something went wrong, try again later");
         console.log(resonse);
       });
     // console.log(data);
     // reset();
   };
-  
+
   return (
     <div className="create_task_page">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -86,7 +85,7 @@ function CreateTask() {
             <br />
             <input
               className="title_input"
-              type="tect"
+              type="text"
               placeholder="your task title"
               {...register("title")}
             />

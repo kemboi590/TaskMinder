@@ -16,7 +16,7 @@ function ViewTask() {
   const [priorityFilter, setPriorityFilter] = useState("");
   // const [dueDateFilter, setDueDateFilter] = useState("");
 
-  const getAllTasks = async () => {
+ const getAllTasks = async () => {
     try {
       const response = await Axios.get(`${apidomain}/tasks`, {
         headers: {
@@ -127,3 +127,4 @@ function ViewTask() {
 }
 
 export default ViewTask;
+
