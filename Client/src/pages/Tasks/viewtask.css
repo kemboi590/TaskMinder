@@ -5,6 +5,7 @@
   flex-wrap: wrap;
   margin-bottom: 40px;
   gap: 10px;
+  /* border: 1px rgb(45, 17, 226) solid; */
 }
 .available_tasks {
   display: flex;
@@ -104,4 +105,42 @@
   margin-top: 10px;
   display: flex;
   justify-content: center;
+}
+
+@media screen and (max-width: 850px) {
+  .filterInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .task_card {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .task_card {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .available_tasks {
+    font-size: 16px;
+  }
+  .filter_section {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .task_card {
+    width: 250px;
+  }
+}
+@media screen and (max-width: 470px) {
+  .task_card {
+    width: 200px;
+  }
 }

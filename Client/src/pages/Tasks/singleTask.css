@@ -60,3 +60,18 @@
   border: #555 solid 1px;
   width: 90%;
 }
+
+@media screen and (max-width: 450px){
+  .single_task_table td {
+    font-size: 14px;
+  }
+  .single_task_buttons button {
+    font-size: 14px;
+  }
+  .single_task_title {
+    font-size: 20px;
+  }
+  .update_task_form {
+    width: 100%;
+  }
+}

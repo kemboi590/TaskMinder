@@ -76,3 +76,16 @@
 .contacticon {
   font-size: 38px;
 }
+
+@media screen and (max-width: 850px){
+  .addTask{
+    display: none;
+  }
+  .view{
+    display: none;
+  }
+  .contacticon{
+    display: none;
+  }
+  
+}

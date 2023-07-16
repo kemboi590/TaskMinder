@@ -210,10 +210,10 @@ function UpdateTask({ setshowUpdateForm, task, fetchSingleTask }) {
           </div>
           <br />
           <div className="updateBTN">
-            <button onClick={handleClose} className="submit_task">
+            <button onClick={handleClose} className="updatetask">
               Close
             </button>
-            <button onClick={handleSubmit} className="submit_task">
+            <button onClick={handleSubmit} className="updatetask">
               Update Task
             </button>
           </div>
