@@ -13,11 +13,15 @@ import { MdDelete } from "react-icons/md";
 function Profile() {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.user);
-  // console.log(userData);
+  console.log(userData);
 
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [imageUrls, setImageUrls] = useState([]);
+
+  // get last imageUrls from state
+  const newProfilePic = imageUrls[imageUrls.length - 1];
+  console.log(newProfilePic);
 
   let account = "taskminderimagestore";
   let sasToken =
@@ -42,14 +46,14 @@ function Profile() {
         blobServiceClient.getContainerClient(containerName);
       const blobItems = containerClient.listBlobsFlat();
 
-      let urls = "";
+      let urls = [];
       for await (const blob of blobItems) {
-        // console.log(blobServiceClient);
+        console.log(blobServiceClient);
         const imageUrl = `${blobServiceClient.url}${containerName}/${blob.name}`;
-        urls = { name: blob.name, url: imageUrl };
-        // console.log("kemboi", urls);
+        urls.push({ name: blob.name, url: imageUrl });
+        // console.log(urls);
       }
-      setImageUrls(urls.url);
+      setImageUrls(urls);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -78,7 +82,7 @@ function Profile() {
         const result = await blobClient.uploadData(file, {
           blobHTTPHeaders: { blobContentType: file.type },
         });
-        // console.log(result);
+        console.log(result);
         // Clear the imageUrls array before fetching the new images
 
         // setImageUrls([]);
@@ -91,7 +95,7 @@ function Profile() {
     }
   };
 
-  const deleteImage = async (blobName) => {
+  const deleteImage = async () => {
     const blobServiceClient = new BlobServiceClient(
       `https://${account}.blob.core.windows.net/?${sasToken}`
     );
@@ -114,8 +118,8 @@ function Profile() {
                   src={URL.createObjectURL(file)}
                   alt="no pic"
                 />
-              ) : imageUrls ? (
-                <img className="" src={imageUrls} alt="profile pic" />
+              ) : newProfilePic ? (
+                <img className="" src={newProfilePic.url} alt="profile pic" />
               ) : (
                 <img className="displayImg" src={placeholder} alt="nopic" />
               )}
@@ -136,10 +140,7 @@ function Profile() {
               </button>
 
               {/* button to delete image */}
-              <button
-                onClick={() => deleteImage(imageUrls.name)}
-                className="delbtn"
-              >
+              <button onClick={() => deleteImage(urls.name)} className="delbtn">
                 <MdDelete className="del_profile" />
               </button>
             </div>

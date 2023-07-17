@@ -27,8 +27,8 @@ function UpdateTask({ setshowUpdateForm, task, fetchSingleTask }) {
   const [users, setUsers] = useState([]);
   const userData = useSelector((state) => state.user.user);
   // const navigate = useNavigate();
-  
-// get request to fetch all users in the database
+
+  // get request to fetch all users in the database
   const getAllUsers = async () => {
     try {
       const response = await Axios.get(`${apidomain}/users`, {
@@ -45,7 +45,7 @@ function UpdateTask({ setshowUpdateForm, task, fetchSingleTask }) {
   useEffect(() => {
     getAllUsers();
   }, []);
-// clossing the submit form
+  // clossing the submit form
   const handleClose = () => {
     setshowUpdateForm(false);
   };
@@ -77,8 +77,8 @@ function UpdateTask({ setshowUpdateForm, task, fetchSingleTask }) {
 
     return Object.keys(errors).length === 0;
   };
-          // submitting data in thr form
-  const handleSubmit = async (e) => {
+  // submitting data in thr form
+  const handleUpdate = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -101,10 +101,12 @@ function UpdateTask({ setshowUpdateForm, task, fetchSingleTask }) {
           },
         }
       );
-      console.log(response);
+      // console.log(response.data.message);
+      alert(response.data.message);
       fetchSingleTask();
-    } catch (error) {
-      console.log(error);
+    } catch (response) {
+      alert("an error occured, please try again");
+      // console.log(response);
     }
   };
 
@@ -138,7 +140,9 @@ function UpdateTask({ setshowUpdateForm, task, fetchSingleTask }) {
               onChange={(e) => setDescription(e.target.value)}
               name="description"
             ></textarea>
-            {errors.description && <span className="errors">{errors.description}</span>}
+            {errors.description && (
+              <span className="errors">{errors.description}</span>
+            )}
           </div>
           <br />
           <div>
@@ -158,7 +162,9 @@ function UpdateTask({ setshowUpdateForm, task, fetchSingleTask }) {
                 </React.Fragment>
               ))}
             </div>
-            {errors.assigned_to && <span className="errors">{errors.assigned_to}</span>}
+            {errors.assigned_to && (
+              <span className="errors">{errors.assigned_to}</span>
+            )}
           </div>
           <br />
           <div>
@@ -171,7 +177,9 @@ function UpdateTask({ setshowUpdateForm, task, fetchSingleTask }) {
               value={due_date}
               onChange={(e) => setDue_date(e.target.value)}
             />
-            {errors.due_date && <span className="errors">{errors.due_date}</span>}
+            {errors.due_date && (
+              <span className="errors">{errors.due_date}</span>
+            )}
           </div>
           <br />
           <div>
@@ -206,14 +214,16 @@ function UpdateTask({ setshowUpdateForm, task, fetchSingleTask }) {
               />
               <label className="priority">Low</label>
             </div>
-            {errors.priority && <span className="errors">{errors.priority}</span>}
+            {errors.priority && (
+              <span className="errors">{errors.priority}</span>
+            )}
           </div>
           <br />
           <div className="updateBTN">
             <button onClick={handleClose} className="updatetask">
               Close
             </button>
-            <button onClick={handleSubmit} className="updatetask">
+            <button onClick={handleUpdate} className="updatetask">
               Update Task
             </button>
           </div>

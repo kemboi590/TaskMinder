@@ -40,7 +40,7 @@ function SingleTask() {
   const handleUpdate = (task) => {
     setTempTaskData(task);
     setshowUpdateForm(!showUpdateForm);
- 
+
     // navigate("/tasks");
   };
 
@@ -60,11 +60,10 @@ function SingleTask() {
 
   return (
     <div className="task_page">
-      <table className="single_task_table" >
+      <table className="single_task_table">
         <caption className="single_task_title">SINGLE TASK</caption>
         <tbody>
           {task.map((task, index) => {
-          
             // for created at
             const createdAt = new Date(task.created_at);
             const CreatedDate = createdAt.toDateString();
