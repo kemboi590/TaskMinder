@@ -1,5 +1,7 @@
 import sql from "mssql";
 import config from "./../db/config.js";
+import nodeMailer from "nodemailer";
+const { mail_password } = config;
 
 // get all tasks
 export const getAllTasks = async (req, res) => {
@@ -14,7 +16,11 @@ export const getAllTasks = async (req, res) => {
 };
 
 //  Create a task
+// Create a task
 export const createTask = async (req, res) => {
+  // Get the user's email from the request
+  const { email } = req.user;
+
   try {
     const {
       title,
@@ -25,7 +31,11 @@ export const createTask = async (req, res) => {
       status,
       assigned_to,
     } = req.body;
+
+    // Connect to the SQL database
     let pool = await sql.connect(config.sql);
+
+    // Insert the new task into the Tasks table
     await pool
       .request()
       .input("title", sql.VarChar, title)
@@ -36,10 +46,45 @@ export const createTask = async (req, res) => {
       .input("status", sql.VarChar, status)
       .input("assigned_to", sql.Int, assigned_to)
       .query(
-        "INSERT INTO Tasks ( title, description, created_at, due_date, priority, status, assigned_to) VALUES ( @title, @description,  GETDATE(), @due_date, @priority, @status, @assigned_to)"
+        "INSERT INTO Tasks (title, description, created_at, due_date, priority, status, assigned_to) VALUES (@title, @description, GETDATE(), @due_date, @priority, @status, @assigned_to)"
       );
 
-    res.status(201).json({ message: "Task created successfully!" });
+    // Get the email of the assigned user from the Users table
+    const assignedUser = await pool
+      .request()
+      .input("assigned_to", sql.Int, assigned_to)
+      .query("SELECT email FROM Users WHERE user_id = @assigned_to");
+
+    const assignedToEmail = assignedUser.recordset[0].email;
+    console.log(assignedToEmail);
+
+    // Send email to the assigned user
+    let transporter = nodeMailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "bkemboi590@gmail.com",
+        pass: mail_password,
+      },
+    });
+    let mailOptions = {
+      from: email,
+      to: assignedToEmail,
+      subject: "You have been assigned a new task from TaskMinder App",
+      html: `<h2>Task Details</h2>
+        <p>Title: ${title}</p>
+        <p>Description: ${description}</p>
+        <p>Priority: ${priority}</p>
+        <p>Status: ${status}</p>`,
+    };
+    transporter.sendMail(mailOptions, (err, data) => {
+      if (err) {
+        console.log("Error Occurred", err);
+        res.status(500).json({ error: "Error sending email." });
+      } else {
+        console.log(`Email sent to ${data.response}`);
+        res.status(201).json({ message: "Task created successfully!" });
+      }
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -63,6 +108,7 @@ export const getSingleTask = async (req, res) => {
 
 // Update a task
 export const updateTask = async (req, res) => {
+  const { email } = req.user;
   try {
     const { id } = req.params;
     const {
@@ -89,7 +135,44 @@ export const updateTask = async (req, res) => {
         "UPDATE Tasks SET title = @title, description = @description, created_at =  GETDATE(), due_date = @due_date, priority = @priority, status = @status, assigned_to = @assigned_to WHERE task_id = @id"
       );
 
-    res.status(200).json({ message: "Task updated successfully!" });
+    // Get the email of the assigned user from the Users table
+    const assignedUser = await pool
+      .request()
+      .input("assigned_to", sql.Int, assigned_to)
+      .query("SELECT email FROM Users WHERE user_id = @assigned_to");
+
+    const assignedToEmail = assignedUser.recordset[0].email;
+    console.log(assignedToEmail);
+
+    // Send email to the assigned user
+    let transporter = nodeMailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "bkemboi590@gmail.com",
+        pass: mail_password,
+      },
+    });
+    let mailOptions = {
+      from: email,
+      to: assignedToEmail,
+      subject: "You have been assigned a new task from TaskMinder App",
+      html: `<h2>Task Details</h2>
+         <p>Title: ${title}</p>
+         <p>Description: ${description}</p>
+         <p>Priority: ${priority}</p>
+         <p>Status: ${status}</p>`,
+    };
+    transporter.sendMail(mailOptions, (err, data) => {
+      if (err) {
+        console.log("Error Occurred", err);
+        res.status(500).json({ error: "Error sending email." });
+      } else {
+        console.log(`Email sent to ${data.response}`);
+        res.status(201).json({ message: "Task created successfully!" });
+      }
+    });
+
+    // res.status(200).json({ message: "Task updated successfully!" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
